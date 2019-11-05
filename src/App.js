@@ -7,8 +7,16 @@ import CatList from './CatList'
 class App extends Component {   
   
   componentDidMount(){
-    console.log(this.props)
     this.props.fetchCats()
+  }
+
+  loadingObject = () => {
+    console.log(this.props.loading)
+    if(this.props.loading) {
+      return <div>Loading Objects...</div>
+    } else {
+      return <CatList catPics={this.props.catPics} />
+    }
   }
 
 
@@ -17,11 +25,12 @@ class App extends Component {
     return (
       <div className="App">
         <h1>CatBook</h1>
-        <CatList catPics={this.props.catPics}/>
+        {this.loadingObject()}
       </div>
     );
   }
 }
+
 
 const mapStateToProps = state => {
   return {
@@ -30,11 +39,5 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchCats: () => dispatch(fetchCats())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, {fetchCats})(App)
 

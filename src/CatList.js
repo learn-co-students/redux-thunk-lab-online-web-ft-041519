@@ -1,13 +1,16 @@
-// write your CatList component here
+import React from 'react';
 
-import React, { Component } from 'react';
-
-export default class CatList extends Component {
+class CatList extends React.Component {
+listCats = () => {
+    return this.props.catPics.map(cat => <img key={cat.id} src={cat.url} alt={cat.id} />)
+}
     render() {
-        return(
+        return (
             <div>
-                {this.props.catPics.map(cat => <img src={cat.url} alt=""/>)}
+            {this.listCats()}
             </div>
         )
     }
 }
+
+export default CatList;
